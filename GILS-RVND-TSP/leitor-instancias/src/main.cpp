@@ -17,15 +17,35 @@ int main(int argc, char** argv) {
 
     // Solucao solucao = SolutionILS(data, maxIter, maxIterIls);
 
-    Solucao solucao_inicial = Construcao(data);
-    BuscaLocal(solucao_inicial, data);
+    Solucao solucao = Construcao(data);
 
-    cout << endl << endl;
-    cout << "Solucao melhorada pela busca local: " << endl;
-    for (int i = 0; i < solucao_inicial.sequence.size()-1; i++) {
-        cout << solucao_inicial.sequence[i] << " -> ";
+    cout << "Solucao inicial gerada pela construcao: ";
+    for (int i = 0; i < solucao.sequence.size()-1; i++) {
+        cout << solucao.sequence[i] << " -> ";
     }
-    cout << solucao_inicial.sequence[solucao_inicial.sequence.size()-1] << endl;
+    cout << solucao.sequence[solucao.sequence.size()-1] << endl;
+    cout << "Custo: " << solucao.cost << endl;
+
+    int cont = 0;
+    for (int i = 0; i < solucao.sequence.size() - 1; i++) {
+        cont += data.getDistance(solucao.sequence[i], solucao.sequence[i+1]);
+    }
+    cout << "Custo certo: " << cont << endl << endl;
+
+    BuscaLocal(solucao, data);
+
+    cout << "Solucao melhorada pela busca local: ";
+    for (int i = 0; i < solucao.sequence.size()-1; i++) {
+        cout << solucao.sequence[i] << " -> ";
+    }
+    cout << solucao.sequence[solucao.sequence.size()-1] << endl;
+    cout << "Custo: " << solucao.cost << endl << endl;
+
+    cont = 0;
+    for (int i = 0; i < solucao.sequence.size(); i++) {
+        cont += data.getDistance(solucao.sequence[i], solucao.sequence[i+1]);
+    }
+    cout << "Custo certo: " << cont << endl;
 
     return 0;
 }

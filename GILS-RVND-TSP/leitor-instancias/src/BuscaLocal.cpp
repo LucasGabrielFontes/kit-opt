@@ -13,10 +13,22 @@ bool bestImprovementSwap(Solution& s, Data& data) {
 
         for(int j = i + 1; j < s.sequence.size()-1; j++) {
             int vj = s.sequence[j];
-            int vj_next = s.sequence[j + 1];
-            int vj_prev = s.sequence[j- 1];
+            int vj_next = s.sequence[j+1];
+            int vj_prev = s.sequence[j-1];
 
-            double delta = -data.getDistance(vi_prev, vi) - data.getDistance(vi, vi_next) + data.getDistance(vi_prev, vj) + data.getDistance(vj, vi_next) - data.getDistance(vj_prev, vj) - data.getDistance(vj, vj_next) + data.getDistance(vj_prev, vi) + data.getDistance(vi, vj_next);
+            double delta =  - data.getDistance(vi_prev, vi)
+                            + data.getDistance(vi_prev, vj)
+                            - data.getDistance(vj, vj_next)
+                            + data.getDistance(vi, vj_next);
+
+            if (abs(i-j) != 1) {
+
+                delta +=    - data.getDistance(vi, vi_next)
+                            + data.getDistance(vj, vi_next)
+                            - data.getDistance(vj_prev, vj)
+                            + data.getDistance(vj_prev, vi);
+
+            } 
 
             if (delta < bestDelta){
                 bestDelta = delta;
@@ -29,15 +41,16 @@ bool bestImprovementSwap(Solution& s, Data& data) {
     if(bestDelta < 0) {
         std::swap(s.sequence[best_i], s.sequence[best_j]);
         s.cost += bestDelta;
+
         return true;
     }
-    return false;
 
+    return false;
 }
 
 bool bestImprovement2Opt(Solution& s, Data& data) {
 
-    double bestDelta = 0;
+    double bestDelta = std::numeric_limits<double>::infinity();
     int best_i_next, best_k; // com o indice i, por exemplo, você consegue a aresta em s.sequence[i] e s.sequence[i+1]
 
     for (int i = 1; i < s.sequence.size()-1; i++) { 
@@ -50,7 +63,10 @@ bool bestImprovement2Opt(Solution& s, Data& data) {
             int vk = s.sequence[k];
             int vk_next = s.sequence[k+1];
 
-            double delta = -data.getDistance(vi, vi_next) - data.getDistance(vk, vk_next) + data.getDistance(vi, vk) + data.getDistance(vi_next, vk_next);
+            double delta =  - data.getDistance(vi, vi_next) 
+                            - data.getDistance(vk, vk_next) 
+                            + data.getDistance(vi, vk) 
+                            + data.getDistance(vi_next, vk_next);
 
             if (delta < bestDelta){
                 bestDelta = delta;
@@ -72,7 +88,7 @@ bool bestImprovement2Opt(Solution& s, Data& data) {
     return false;
 }
 
-bool bestImprovementOrOpt(Solution& s, int size, Data& data){
+bool bestImprovementOrOpt(Solution& s, const int size, Data& data){
 
     double bestDelta = std::numeric_limits<double>::infinity();
 
@@ -86,7 +102,7 @@ bool bestImprovementOrOpt(Solution& s, int size, Data& data){
                 continue;
             }
 
-            if (size > 1 && j >= i && j < i + size) {
+            if (j >= i && j < i + size) {
                 continue;
             }
 
@@ -107,19 +123,6 @@ bool bestImprovementOrOpt(Solution& s, int size, Data& data){
 
     if (bestDelta < 0) {
 
-        cout << endl << "Bloco escolhido para mudar de posicao: ";
-        for (int k = 0; k < size; k++) {
-            cout << s.sequence[best_i + k] << " ";
-        }
-        cout << "Na frente de: " << s.sequence[insertionSite] << endl;
-
-        cout << "Sequencia anterior: " << endl;
-        for (int i = 0; i < s.sequence.size()-1; i++) {
-            cout << s.sequence[i] << " -> ";
-        }
-        cout << s.sequence[s.sequence.size()-1] << endl;
-        cout << "Custo anterior: " << s.cost;
-
         vector<int> bloco(s.sequence.begin() + best_i, s.sequence.begin() + best_i + size);
         s.sequence.erase(s.sequence.begin() + best_i, s.sequence.begin() + best_i + size);
 
@@ -130,21 +133,14 @@ bool bestImprovementOrOpt(Solution& s, int size, Data& data){
         s.sequence.insert(s.sequence.begin() + insertionSite + 1, bloco.begin(), bloco.end());
         s.cost += bestDelta;
 
-        cout << endl << "Sequencia atual: " << endl;
-        for (int i = 0; i < s.sequence.size()-1; i++) {
-            cout << s.sequence[i] << " -> ";
-        }
-        cout << s.sequence[s.sequence.size()-1] << endl;
+        cout << "\n\n";
         cout << "Custo atual: " << s.cost << endl;
-
-        cout << "Custo que era pra ser: ";
-
         int cont = 0;
         for (int i = 0; i < s.sequence.size()-1; i++) {
             cont += data.getDistance(s.sequence[i], s.sequence[i+1]);
         }
-
-        cout << cont << endl;
+        cout << "Custo certo: " << cont << endl;
+        cout << "\n\n";
 
         return true;
     }
@@ -160,13 +156,13 @@ bool bestImprovementOrOpt(Solution& s, int size, Data& data){
 //
 // O loop para quando não houver mais vizinhanças para explorar
 void BuscaLocal(Solution& s, Data& data){
-    std::vector<int> NL = {1, 2, 3, 4, 5};
+    std::vector<int> NL = {2};
     bool improved=false;
     
-    while (NL.empty()==false) {
+    while (NL.empty() == false) {
         int n = rand()%NL.size();
         switch(NL[n]){
-            case   1:
+            case 1:
                 improved = bestImprovementSwap(s, data);
                 break;
             case 2:
@@ -175,7 +171,7 @@ void BuscaLocal(Solution& s, Data& data){
             case 3:
                 improved = bestImprovementOrOpt(s, 1, data); // Reinsertion
                 break;
-            case4:
+            case 4:
                 improved = bestImprovementOrOpt(s, 2, data); // Or-opt2
                 break;
             case 5:
@@ -183,7 +179,7 @@ void BuscaLocal(Solution& s, Data& data){
                 break;
         }
         if (improved)
-            NL = {1, 2, 3, 4, 5};
+            NL = {2};
         else
             NL.erase(NL.begin() + n);
     }

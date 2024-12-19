@@ -11,7 +11,7 @@ std::vector<InsertionInfo> calcularCustoInsercao(Solution& s, std::vector<int>& 
     int l = 0;
 
     for (int a = 0; a < s.sequence.size() - 1; a++) {
-        int i = s.sequence[a];
+        int i = s.sequence[a]; 
         int j = s.sequence[a + 1]; // Sempre vai inserir entre dois vertices adjacentes
 
         for (auto k : CL) { // Para cada par de vertices subsequentes, coloca a insercao de um vertice k
