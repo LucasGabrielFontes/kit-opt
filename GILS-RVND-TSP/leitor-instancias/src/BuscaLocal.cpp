@@ -53,19 +53,35 @@ bool bestImprovement2Opt(Solution& s, Data& data) {
     double bestDelta = std::numeric_limits<double>::infinity();
     int best_i_next, best_k; // com o indice i, por exemplo, você consegue a aresta em s.sequence[i] e s.sequence[i+1]
 
-    for (int i = 1; i < s.sequence.size()-1; i++) { 
+    for (int i = 1; i < s.sequence.size()-5; i++) { 
 
         int vi = s.sequence[i];
         int vi_next = s.sequence[i+1];
+        int vi_next_next = s.sequence[i+2];
 
-        for (int k = i+2; k < s.sequence.size()-1; k++) {
+        for (int k = i+3; k < s.sequence.size()-2; k++) {
 
             int vk = s.sequence[k];
             int vk_next = s.sequence[k+1];
+            int vk_prev = s.sequence[k-1];
 
-            double delta =  - data.getDistance(vi, vi_next) 
-                            - data.getDistance(vk, vk_next) 
-                            + data.getDistance(vi, vk) 
+            // double delta =  - data.getDistance(vi_prev, vi)
+            //                 + data.getDistance(vi_prev, vj)
+            //                 - data.getDistance(vj, vj_next)
+            //                 + data.getDistance(vi, vj_next);
+
+            // delta +=        - data.getDistance(vi, vi_next)
+            //                 + data.getDistance(vj, vi_next)
+            //                 - data.getDistance(vj_prev, vj)
+            //                 + data.getDistance(vj_prev, vi);
+
+            double delta =  - data.getDistance(vi, vi_next)
+                            - data.getDistance(vi_next, vi_next_next)
+                            - data.getDistance(vk_prev, vk)
+                            - data.getDistance(vk, vk_next)
+                            + data.getDistance(vi, vk)
+                            + data.getDistance(vk, vi_next_next)
+                            + data.getDistance(vk_prev, vi_next)
                             + data.getDistance(vi_next, vk_next);
 
             if (delta < bestDelta){
@@ -81,6 +97,15 @@ bool bestImprovement2Opt(Solution& s, Data& data) {
     if (bestDelta < 0) {
         std::swap(s.sequence[best_i_next], s.sequence[best_k]);
         s.cost += bestDelta;
+
+        // cout << "\n\n";
+        // cout << "Custo atual: " << s.cost << endl;
+        // int cont = 0;
+        // for (int i = 0; i < s.sequence.size()-1; i++) {
+        //     cont += data.getDistance(s.sequence[i], s.sequence[i+1]);
+        // }
+        // cout << "Custo certo: " << cont << endl;
+        // cout << "\n\n";
 
         return true;
     }
@@ -132,15 +157,6 @@ bool bestImprovementOrOpt(Solution& s, const int size, Data& data){
 
         s.sequence.insert(s.sequence.begin() + insertionSite + 1, bloco.begin(), bloco.end());
         s.cost += bestDelta;
-
-        cout << "\n\n";
-        cout << "Custo atual: " << s.cost << endl;
-        int cont = 0;
-        for (int i = 0; i < s.sequence.size()-1; i++) {
-            cont += data.getDistance(s.sequence[i], s.sequence[i+1]);
-        }
-        cout << "Custo certo: " << cont << endl;
-        cout << "\n\n";
 
         return true;
     }

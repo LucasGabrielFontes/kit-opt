@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
         cout << solucao.sequence[i] << " -> ";
     }
     cout << solucao.sequence[solucao.sequence.size()-1] << endl;
-    cout << "Custo: " << solucao.cost << endl << endl;
+    cout << "Custo: " << solucao.cost << endl;
 
     cont = 0;
     for (int i = 0; i < solucao.sequence.size(); i++) {
