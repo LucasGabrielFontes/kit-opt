@@ -14,11 +14,11 @@ Solucao Perturbacao(Solution s, Data& data) {
     int tam1 = segmento(rng);
     int tam2 = segmento(rng);
 
-    uniform_int_distribution<int> indice1(1, n - tam1 - tam2 - 2);
+    uniform_int_distribution<int> indice1(1, n - (tam1+1) - tam2 - 2);
 
     int i1 = indice1(rng);
 
-    uniform_int_distribution<int> indice2(i1+1, n - tam2+1 - 2);
+    uniform_int_distribution<int> indice2(i1+tam1, n - tam2+1 - 2);
 
     int i2 = indice2(rng);
 

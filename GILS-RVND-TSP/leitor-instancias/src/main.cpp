@@ -12,15 +12,13 @@ int main(int argc, char** argv) {
     auto data = Data(argc, argv[1]);
     data.read();
 
-    // // Definir os limites de iteração
-    // int maxIter = 100;    // Número máximo de iterações globais
-    // int maxIterIls = 10;  // Número máximo de iterações no ILS
+    // Definir os limites de iteração
+    int maxIter = 100;    // Número máximo de iterações globais
+    int maxIterIls = 10;  // Número máximo de iterações no ILS
 
-    // Solucao solucao = SolutionILS(data, maxIter, maxIterIls);
+    Solucao solucao = SolutionILS(data, maxIter, maxIterIls);
 
-    Solucao solucao = Construcao(data);
-
-    cout << "Solucao inicial gerada pela construcao: ";
+    cout << "Solucao: ";
     for (int i = 0; i < solucao.sequence.size()-1; i++) {
         cout << solucao.sequence[i] << " -> ";
     }
@@ -31,37 +29,52 @@ int main(int argc, char** argv) {
     for (int i = 0; i < solucao.sequence.size() - 1; i++) {
         cont += data.getDistance(solucao.sequence[i], solucao.sequence[i+1]);
     }
-    cout << "Custo certo: " << cont << endl << endl;
-
-    BuscaLocal(solucao, data);
-
-    cout << "Solucao melhorada pela busca local: ";
-    for (int i = 0; i < solucao.sequence.size()-1; i++) {
-        cout << solucao.sequence[i] << " -> ";
-    }
-    cout << solucao.sequence[solucao.sequence.size()-1] << endl;
-    cout << "Custo: " << solucao.cost << endl;
-
-    cont = 0;
-    for (int i = 0; i < solucao.sequence.size(); i++) {
-        cont += data.getDistance(solucao.sequence[i], solucao.sequence[i+1]);
-    }
     cout << "Custo certo: " << cont << endl;
 
-    Solucao solucaoPertubada = Perturbacao(solucao, data);
+    // Solucao solucao = Construcao(data);
 
-    cout << "\nSolucao piorada pela perturbacao: ";
-    for (int i = 0; i < solucaoPertubada.sequence.size()-1; i++) {
-        cout << solucaoPertubada.sequence[i] << " -> ";
-    }
-    cout << solucaoPertubada.sequence[solucaoPertubada.sequence.size()-1] << endl;
-    cout << "Custo: " << solucaoPertubada.cost << endl;
+    // cout << "Solucao inicial gerada pela construcao: ";
+    // for (int i = 0; i < solucao.sequence.size()-1; i++) {
+    //     cout << solucao.sequence[i] << " -> ";
+    // }
+    // cout << solucao.sequence[solucao.sequence.size()-1] << endl;
+    // cout << "Custo: " << solucao.cost << endl;
 
-    cont = 0;
-    for (int i = 0; i < solucaoPertubada.sequence.size(); i++) {
-        cont += data.getDistance(solucaoPertubada.sequence[i], solucaoPertubada.sequence[i+1]);
-    }
-    cout << "Custo certo: " << cont << endl;
+    // int cont = 0;
+    // for (int i = 0; i < solucao.sequence.size() - 1; i++) {
+    //     cont += data.getDistance(solucao.sequence[i], solucao.sequence[i+1]);
+    // }
+    // cout << "Custo certo: " << cont << endl << endl;
+
+    // BuscaLocal(solucao, data);
+
+    // cout << "Solucao melhorada pela busca local: ";
+    // for (int i = 0; i < solucao.sequence.size()-1; i++) {
+    //     cout << solucao.sequence[i] << " -> ";
+    // }
+    // cout << solucao.sequence[solucao.sequence.size()-1] << endl;
+    // cout << "Custo: " << solucao.cost << endl;
+
+    // cont = 0;
+    // for (int i = 0; i < solucao.sequence.size(); i++) {
+    //     cont += data.getDistance(solucao.sequence[i], solucao.sequence[i+1]);
+    // }
+    // cout << "Custo certo: " << cont << endl;
+
+    // Solucao solucaoPertubada = Perturbacao(solucao, data);
+
+    // cout << "\nSolucao piorada pela perturbacao: ";
+    // for (int i = 0; i < solucaoPertubada.sequence.size()-1; i++) {
+    //     cout << solucaoPertubada.sequence[i] << " -> ";
+    // }
+    // cout << solucaoPertubada.sequence[solucaoPertubada.sequence.size()-1] << endl;
+    // cout << "Custo: " << solucaoPertubada.cost << endl;
+
+    // cont = 0;
+    // for (int i = 0; i < solucaoPertubada.sequence.size(); i++) {
+    //     cont += data.getDistance(solucaoPertubada.sequence[i], solucaoPertubada.sequence[i+1]);
+    // }
+    // cout << "Custo certo: " << cont << endl;
 
     return 0;
 }

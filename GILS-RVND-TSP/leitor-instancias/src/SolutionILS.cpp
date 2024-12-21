@@ -26,14 +26,14 @@ Solucao SolutionILS(Data &data, int maxIter, int maxIterIls) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-            cout << "\n\n";
-            cout << "Custo atual: " << s.cost << endl;
-            int cont = 0;
-            for (int i = 0; i < s.sequence.size()-1; i++) {
-                cont += data.getDistance(s.sequence[i], s.sequence[i+1]);
-            }
-            cout << "Custo certo: " << cont << endl;
-            cout << "\n\n";
+            // cout << "\n\n";
+            // cout << "Custo atual: " << s.cost << endl;
+            // int cont = 0;
+            // for (int i = 0; i < s.sequence.size()-1; i++) {
+            //     cont += data.getDistance(s.sequence[i], s.sequence[i+1]);
+            // }
+            // cout << "Custo certo: " << cont << endl;
+            // cout << "\n\n";
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
