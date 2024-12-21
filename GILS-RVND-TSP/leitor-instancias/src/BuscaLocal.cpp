@@ -65,16 +65,6 @@ bool bestImprovement2Opt(Solution& s, Data& data) {
             int vk_next = s.sequence[k+1];
             int vk_prev = s.sequence[k-1];
 
-            // double delta =  - data.getDistance(vi_prev, vi)
-            //                 + data.getDistance(vi_prev, vj)
-            //                 - data.getDistance(vj, vj_next)
-            //                 + data.getDistance(vi, vj_next);
-
-            // delta +=        - data.getDistance(vi, vi_next)
-            //                 + data.getDistance(vj, vi_next)
-            //                 - data.getDistance(vj_prev, vj)
-            //                 + data.getDistance(vj_prev, vi);
-
             double delta =  - data.getDistance(vi, vi_next)
                             - data.getDistance(vi_next, vi_next_next)
                             - data.getDistance(vk_prev, vk)
@@ -172,7 +162,7 @@ bool bestImprovementOrOpt(Solution& s, const int size, Data& data){
 //
 // O loop para quando não houver mais vizinhanças para explorar
 void BuscaLocal(Solution& s, Data& data){
-    std::vector<int> NL = {2};
+    std::vector<int> NL = {1,2,3,4,5};
     bool improved=false;
     
     while (NL.empty() == false) {
@@ -195,7 +185,7 @@ void BuscaLocal(Solution& s, Data& data){
                 break;
         }
         if (improved)
-            NL = {2};
+            NL = {1,2,3,4,5};
         else
             NL.erase(NL.begin() + n);
     }

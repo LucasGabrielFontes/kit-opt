@@ -2,6 +2,7 @@
 #include <cmath> // Para INFINITY
 #include "Construcao.h"
 #include "BuscaLocal.h"
+#include "Perturbacao.h"
 #include <iostream>
 
 // Função SolutionILS
@@ -21,8 +22,22 @@ Solucao SolutionILS(Data &data, int maxIter, int maxIterIls) {
                 best = s;          // Atualiza a melhor solução local
                 iterIls = 0;       // Reinicia o contador de ILS
             }
-            // s = Perturbacao(best); // Aplica perturbação à solução
-            // iterIls++;             // Incrementa o contador de ILS
+            s = Perturbacao(best, data); // Aplica perturbação à solução
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+            cout << "\n\n";
+            cout << "Custo atual: " << s.cost << endl;
+            int cont = 0;
+            for (int i = 0; i < s.sequence.size()-1; i++) {
+                cont += data.getDistance(s.sequence[i], s.sequence[i+1]);
+            }
+            cout << "Custo certo: " << cont << endl;
+            cout << "\n\n";
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+            iterIls++;             // Incrementa o contador de ILS
         }
 
         if (best.cost < bestOfAll.cost) {

@@ -5,7 +5,7 @@
 
 bool bestImprovementSwap(Solution& s, Data& data);
 bool bestImprovement2Opt(Solution& s, Data& data);
-bool bestImprovementOrOpt(Solution& s, int size, Data& data);
+bool bestImprovementOrOpt(Solution& s, const int size, Data& data);
 void BuscaLocal(Solution& s, Data& data);
 
 #endif

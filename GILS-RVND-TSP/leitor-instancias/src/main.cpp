@@ -3,6 +3,7 @@
 #include "SolutionILS.h"
 #include "Construcao.h"
 #include "BuscaLocal.h"
+#include "Perturbacao.h"
 
 using namespace std;
 
@@ -44,6 +45,21 @@ int main(int argc, char** argv) {
     cont = 0;
     for (int i = 0; i < solucao.sequence.size(); i++) {
         cont += data.getDistance(solucao.sequence[i], solucao.sequence[i+1]);
+    }
+    cout << "Custo certo: " << cont << endl;
+
+    Solucao solucaoPertubada = Perturbacao(solucao, data);
+
+    cout << "\nSolucao piorada pela perturbacao: ";
+    for (int i = 0; i < solucaoPertubada.sequence.size()-1; i++) {
+        cout << solucaoPertubada.sequence[i] << " -> ";
+    }
+    cout << solucaoPertubada.sequence[solucaoPertubada.sequence.size()-1] << endl;
+    cout << "Custo: " << solucaoPertubada.cost << endl;
+
+    cont = 0;
+    for (int i = 0; i < solucaoPertubada.sequence.size(); i++) {
+        cont += data.getDistance(solucaoPertubada.sequence[i], solucaoPertubada.sequence[i+1]);
     }
     cout << "Custo certo: " << cont << endl;
 
