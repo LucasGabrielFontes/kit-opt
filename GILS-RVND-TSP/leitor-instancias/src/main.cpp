@@ -13,8 +13,8 @@ int main(int argc, char** argv) {
     data.read();
 
     // Definir os limites de iteração
-    int maxIter = 100;    // Número máximo de iterações globais
-    int maxIterIls = 10;  // Número máximo de iterações no ILS
+    int maxIter = 50;    // Número máximo de iterações globais
+    int maxIterIls = data.getDimension() >= 150 ? data.getDimension()/2 : data.getDimension();  // Número máximo de iterações no ILS
 
     Solucao solucao = SolutionILS(data, maxIter, maxIterIls);
 
