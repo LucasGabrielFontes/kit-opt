@@ -1,9 +1,10 @@
-#include "SolutionILS.h"
 #include <limits>
+#include "SolutionILS.h"
 
+// Encontra o vizinho da solucao atual na vizinhanca formada pela movimentacao swap que contem o menor custo possivel
 bool bestImprovementSwap(Solution& s, Data& data) {
 
-    double bestDelta = 0;
+    double bestDelta = std::numeric_limits<double>::infinity();;
     int best_i, best_j;
 
     for(int i = 1; i < s.sequence.size()-1; i++) {
@@ -21,7 +22,7 @@ bool bestImprovementSwap(Solution& s, Data& data) {
                             - data.getDistance(vj, vj_next)
                             + data.getDistance(vi, vj_next);
 
-            if (abs(i-j) != 1) {
+            if (abs(i-j) != 1) { // Se nao forem adjacentes
 
                 delta +=    - data.getDistance(vi, vi_next)
                             + data.getDistance(vj, vi_next)
@@ -48,6 +49,7 @@ bool bestImprovementSwap(Solution& s, Data& data) {
     return false;
 }
 
+// Encontra o vizinho da solucao atual na vizinhanca formada pela movimentacao 2 opt que contem o menor custo possivel
 bool bestImprovement2Opt(Solution& s, Data& data) {
 
     double bestDelta = std::numeric_limits<double>::infinity();
@@ -88,21 +90,13 @@ bool bestImprovement2Opt(Solution& s, Data& data) {
         std::swap(s.sequence[best_i_next], s.sequence[best_k]);
         s.cost += bestDelta;
 
-        // cout << "\n\n";
-        // cout << "Custo atual: " << s.cost << endl;
-        // int cont = 0;
-        // for (int i = 0; i < s.sequence.size()-1; i++) {
-        //     cont += data.getDistance(s.sequence[i], s.sequence[i+1]);
-        // }
-        // cout << "Custo certo: " << cont << endl;
-        // cout << "\n\n";
-
         return true;
     }
 
     return false;
 }
 
+// Encontra o vizinho da solucao atual na vizinhanca formada pela movimentacao or opt que contem o menor custo possivel
 bool bestImprovementOrOpt(Solution& s, const int size, Data& data){
 
     double bestDelta = std::numeric_limits<double>::infinity();
@@ -110,6 +104,11 @@ bool bestImprovementOrOpt(Solution& s, const int size, Data& data){
     int best_i = -1, insertionSite = -1;
 
     for (int i = 1; i < s.sequence.size()-size; i++) {
+
+        int vi = s.sequence[i];
+        int vi_prev = s.sequence[i-1];
+        int vi_ult = s.sequence[i+size-1];
+        int vi_prox = s.sequence[i+size];
 
         for (int j = 1; j < s.sequence.size()-1; j++) {
 
@@ -121,12 +120,15 @@ bool bestImprovementOrOpt(Solution& s, const int size, Data& data){
                 continue;
             }
 
-            double delta =  - data.getDistance(s.sequence[i-1], s.sequence[i]) 
-                            - data.getDistance(s.sequence[i+size-1], s.sequence[i+size]) 
-                            - data.getDistance(s.sequence[j], s.sequence[j+1]) 
-                            + data.getDistance(s.sequence[i-1], s.sequence[i+size]) 
-                            + data.getDistance(s.sequence[j], s.sequence[i]) 
-                            + data.getDistance(s.sequence[i+size-1], s.sequence[j+1]);
+            int vj = s.sequence[j];
+            int vj_next = s.sequence[j+1];
+
+            double delta =  - data.getDistance(vi_prev, vi) 
+                            - data.getDistance(vi_ult, vi_prox) 
+                            - data.getDistance(vj, vj_next) 
+                            + data.getDistance(vi_prev, vi_prox) 
+                            + data.getDistance(vj, vi) 
+                            + data.getDistance(vi_ult, vj_next);
 
             if (delta < bestDelta){
                 bestDelta = delta;

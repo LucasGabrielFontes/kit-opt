@@ -3,6 +3,7 @@
 
 using namespace std;
 
+// Retorna uma perturbacao na solucao atual: troca dois segmentos de tamanhos aleatorios de local
 Solucao Perturbacao(Solution s, Data& data) {
     
     int n = data.getDimension();
@@ -36,7 +37,7 @@ Solucao Perturbacao(Solution s, Data& data) {
                 + data.getDistance(s.sequence[i1+tam1-1], s.sequence[i2+tam2])
                 + data.getDistance(s.sequence[i2+tam2-1], s.sequence[i1]);
 
-    } else { 
+    } else {  // nao adjacentes
 
         delta = - data.getDistance(s.sequence[i1-1], s.sequence[i1])
                 - data.getDistance(s.sequence[i1+tam1-1], s.sequence[i1+tam1])
@@ -58,5 +59,4 @@ Solucao Perturbacao(Solution s, Data& data) {
     s.cost += delta;
 
     return s;
-
 }

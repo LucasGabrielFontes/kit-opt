@@ -1,4 +1,4 @@
-#include "Data.h"
+#include "../include/Data.h"
 #include <iostream>
 #include "SolutionILS.h"
 #include "Construcao.h"
@@ -24,57 +24,6 @@ int main(int argc, char** argv) {
     }
     cout << solucao.sequence[solucao.sequence.size()-1] << endl;
     cout << "Custo: " << solucao.cost << endl;
-
-    int cont = 0;
-    for (int i = 0; i < solucao.sequence.size() - 1; i++) {
-        cont += data.getDistance(solucao.sequence[i], solucao.sequence[i+1]);
-    }
-    cout << "Custo certo: " << cont << endl;
-
-    // Solucao solucao = Construcao(data);
-
-    // cout << "Solucao inicial gerada pela construcao: ";
-    // for (int i = 0; i < solucao.sequence.size()-1; i++) {
-    //     cout << solucao.sequence[i] << " -> ";
-    // }
-    // cout << solucao.sequence[solucao.sequence.size()-1] << endl;
-    // cout << "Custo: " << solucao.cost << endl;
-
-    // int cont = 0;
-    // for (int i = 0; i < solucao.sequence.size() - 1; i++) {
-    //     cont += data.getDistance(solucao.sequence[i], solucao.sequence[i+1]);
-    // }
-    // cout << "Custo certo: " << cont << endl << endl;
-
-    // BuscaLocal(solucao, data);
-
-    // cout << "Solucao melhorada pela busca local: ";
-    // for (int i = 0; i < solucao.sequence.size()-1; i++) {
-    //     cout << solucao.sequence[i] << " -> ";
-    // }
-    // cout << solucao.sequence[solucao.sequence.size()-1] << endl;
-    // cout << "Custo: " << solucao.cost << endl;
-
-    // cont = 0;
-    // for (int i = 0; i < solucao.sequence.size(); i++) {
-    //     cont += data.getDistance(solucao.sequence[i], solucao.sequence[i+1]);
-    // }
-    // cout << "Custo certo: " << cont << endl;
-
-    // Solucao solucaoPertubada = Perturbacao(solucao, data);
-
-    // cout << "\nSolucao piorada pela perturbacao: ";
-    // for (int i = 0; i < solucaoPertubada.sequence.size()-1; i++) {
-    //     cout << solucaoPertubada.sequence[i] << " -> ";
-    // }
-    // cout << solucaoPertubada.sequence[solucaoPertubada.sequence.size()-1] << endl;
-    // cout << "Custo: " << solucaoPertubada.cost << endl;
-
-    // cont = 0;
-    // for (int i = 0; i < solucaoPertubada.sequence.size(); i++) {
-    //     cont += data.getDistance(solucaoPertubada.sequence[i], solucaoPertubada.sequence[i+1]);
-    // }
-    // cout << "Custo certo: " << cont << endl;
 
     return 0;
 }

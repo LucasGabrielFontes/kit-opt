@@ -1,9 +1,8 @@
-#include "Construcao.h"
 #include <cmath>      // Para ceil
 #include <cstdlib>    // Para rand e RAND_MAX
 #include <algorithm>  // Para ordenar vetores
-#include "data.h"
-#include <random>
+#include <random>     // Geracao de numeros aleatorios
+#include "Construcao.h"
 
 // Função para calcular custos de inserção
 std::vector<InsertionInfo> calcularCustoInsercao(Solution& s, std::vector<int>& CL, Data& data) {
@@ -27,7 +26,7 @@ std::vector<InsertionInfo> calcularCustoInsercao(Solution& s, std::vector<int>& 
 // Função para escolher 3 nós aleatórios para iniciar a sequência
 std::vector<int> escolher3NosAleatorios(Solution& s, Data& data){
     
-    std::vector<int> candidates; // Vertices candidatos a serem escolhidos (todos, exceto o 1)
+    std::vector<int> candidatos; // Vertices candidatos a serem escolhidos (todos, exceto o 1)
 
     size_t n = data.getDimension(); // Quantidade de vertices
 
@@ -36,20 +35,20 @@ std::vector<int> escolher3NosAleatorios(Solution& s, Data& data){
     }
 
     for (int i = 2; i <= n; i++) {
-        candidates.push_back(i);
+        candidatos.push_back(i);
     }
 
     std::random_device rd;
     std::mt19937 rng(rd());
-    std::shuffle(candidates.begin(), candidates.end(), rng);
+    std::shuffle(candidatos.begin(), candidatos.end(), rng);
 
     std::vector<int> sequence = {1}; // Ciclo que comeca e termina em um passando por tres outros vertices aleatoriamente
 
     int atual = 1;
     for (int i = 0; i < 3; i++) {
-        sequence.push_back(candidates[i]);
-        s.cost += data.getDistance(atual, candidates[i]);
-        atual = candidates[i];
+        sequence.push_back(candidatos[i]);
+        s.cost += data.getDistance(atual, candidatos[i]);
+        atual = candidatos[i];
     }
 
     s.cost += data.getDistance(atual, 1);
@@ -57,7 +56,6 @@ std::vector<int> escolher3NosAleatorios(Solution& s, Data& data){
     sequence.push_back(1);    
 
     return sequence;
-
 }
 
 // Função para retornar todos os nós que não estão no subconjunto de vértices inicial
@@ -74,7 +72,6 @@ std::vector<int> nosRestantes(Data& data, std::vector<int>& sequence) {
     }
 
     return V;
-
 }
 
 // Função para ordenar em ordem crescente pelo custo de inserção cada um dos vértices
