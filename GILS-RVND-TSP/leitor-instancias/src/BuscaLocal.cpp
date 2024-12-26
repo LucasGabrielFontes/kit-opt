@@ -1,4 +1,5 @@
 #include <limits>
+#include <algorithm>
 #include "SolutionILS.h"
 
 // Encontra o vizinho da solucao atual na vizinhanca formada pela movimentacao swap que contem o menor custo possivel
@@ -53,32 +54,26 @@ bool bestImprovementSwap(Solution& s, Data& data) {
 bool bestImprovement2Opt(Solution& s, Data& data) {
 
     double bestDelta = std::numeric_limits<double>::infinity();
-    int best_i_next, best_k; // com o indice i, por exemplo, você consegue a aresta em s.sequence[i] e s.sequence[i+1]
+    int best_i, best_k; // com o indice i, por exemplo, você consegue a aresta em s.sequence[i] e s.sequence[i+1]
 
-    for (int i = 1; i < s.sequence.size()-5; i++) { 
+    for (int i = 0; i < s.sequence.size()-3; i++) { 
 
         int vi = s.sequence[i];
         int vi_next = s.sequence[i+1];
-        int vi_next_next = s.sequence[i+2];
 
-        for (int k = i+3; k < s.sequence.size()-2; k++) {
+        for (int k = i+3; k < s.sequence.size(); k++) {
 
             int vk = s.sequence[k];
-            int vk_next = s.sequence[k+1];
             int vk_prev = s.sequence[k-1];
 
             double delta =  - data.getDistance(vi, vi_next)
-                            - data.getDistance(vi_next, vi_next_next)
                             - data.getDistance(vk_prev, vk)
-                            - data.getDistance(vk, vk_next)
-                            + data.getDistance(vi, vk)
-                            + data.getDistance(vk, vi_next_next)
-                            + data.getDistance(vk_prev, vi_next)
-                            + data.getDistance(vi_next, vk_next);
+                            + data.getDistance(vi, vk_prev)
+                            + data.getDistance(vi_next, vk);
 
             if (delta < bestDelta){
                 bestDelta = delta;
-                best_i_next = i+1;
+                best_i = i;
                 best_k = k;
             }
 
@@ -87,7 +82,7 @@ bool bestImprovement2Opt(Solution& s, Data& data) {
     }
 
     if (bestDelta < 0) {
-        std::swap(s.sequence[best_i_next], s.sequence[best_k]);
+        std::reverse(s.sequence.begin() + best_i + 1, s.sequence.begin() + best_k);
         s.cost += bestDelta;
 
         return true;
