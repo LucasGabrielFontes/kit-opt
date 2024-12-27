@@ -21,14 +21,7 @@ int main(int argc, char** argv) {
 
     chrono::duration<double> tempo = fim - inicio; // Calcula a duração em milissegundos
 
-    string caminho = argv[1];
-
-    size_t posBarra = caminho.find_last_of('/');
-    size_t posPonto = caminho.find_last_of('.');
-
-    string nome_arq = caminho.substr(posBarra + 1, posPonto - posBarra - 1);
-
-    cout << nome_arq << ", " << tempo.count() << ", " << solucao.cost << endl;
+    cout << data.getInstanceName() << ", " << tempo.count() << ", " << solucao.cost << endl;
 
     return 0;
 }

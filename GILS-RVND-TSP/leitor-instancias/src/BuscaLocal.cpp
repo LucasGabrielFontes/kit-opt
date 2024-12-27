@@ -2,7 +2,7 @@
 #include <algorithm>
 #include "SolutionILS.h"
 
-#define epsilon 0.0001
+#define epsilon 0
 
 // Encontra o vizinho da solucao atual na vizinhanca formada pela movimentacao swap que contem o menor custo possivel
 bool bestImprovementSwap(Solution& s, Data& data) {
@@ -34,7 +34,7 @@ bool bestImprovementSwap(Solution& s, Data& data) {
 
             } 
 
-            if ((delta - bestDelta) < epsilon) {
+            if (delta < bestDelta - epsilon) {
                 bestDelta = delta;
                 best_i = i;
                 best_j = j;
@@ -73,7 +73,7 @@ bool bestImprovement2Opt(Solution& s, Data& data) {
                             + data.getDistance(vi, vk_prev)
                             + data.getDistance(vi_next, vk);
 
-            if ((delta - bestDelta) < epsilon) {
+            if (delta < bestDelta - epsilon) {
                 bestDelta = delta;
                 best_i = i;
                 best_k = k;
@@ -125,7 +125,7 @@ bool bestImprovementOrOpt(Solution& s, const int size, Data& data){
                             + data.getDistance(vj, vi)
                             + data.getDistance(vi_ult, vj_next);
 
-            if ((delta - bestDelta) < epsilon) {
+            if (delta < bestDelta - epsilon) {
                 bestDelta = delta;
                 best_i = i;
                 insertionSite = j; // i será inserido na frente de j
