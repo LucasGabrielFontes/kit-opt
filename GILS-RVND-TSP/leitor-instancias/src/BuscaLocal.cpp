@@ -2,10 +2,12 @@
 #include <algorithm>
 #include "SolutionILS.h"
 
+#define epsilon 0.0001
+
 // Encontra o vizinho da solucao atual na vizinhanca formada pela movimentacao swap que contem o menor custo possivel
 bool bestImprovementSwap(Solution& s, Data& data) {
 
-    double bestDelta = std::numeric_limits<double>::infinity();;
+    double bestDelta = std::numeric_limits<double>::infinity();
     int best_i, best_j;
 
     for(int i = 1; i < s.sequence.size()-1; i++) {
@@ -32,7 +34,7 @@ bool bestImprovementSwap(Solution& s, Data& data) {
 
             } 
 
-            if (delta < bestDelta){
+            if ((delta - bestDelta) < epsilon) {
                 bestDelta = delta;
                 best_i = i;
                 best_j = j;
@@ -71,14 +73,12 @@ bool bestImprovement2Opt(Solution& s, Data& data) {
                             + data.getDistance(vi, vk_prev)
                             + data.getDistance(vi_next, vk);
 
-            if (delta < bestDelta){
+            if ((delta - bestDelta) < epsilon) {
                 bestDelta = delta;
                 best_i = i;
                 best_k = k;
             }
-
         }
-
     }
 
     if (bestDelta < 0) {
@@ -118,14 +118,14 @@ bool bestImprovementOrOpt(Solution& s, const int size, Data& data){
             int vj = s.sequence[j];
             int vj_next = s.sequence[j+1];
 
-            double delta =  - data.getDistance(vi_prev, vi) 
-                            - data.getDistance(vi_ult, vi_prox) 
-                            - data.getDistance(vj, vj_next) 
-                            + data.getDistance(vi_prev, vi_prox) 
-                            + data.getDistance(vj, vi) 
+            double delta =  - data.getDistance(vi_prev, vi)
+                            - data.getDistance(vi_ult, vi_prox)
+                            - data.getDistance(vj, vj_next)
+                            + data.getDistance(vi_prev, vi_prox)
+                            + data.getDistance(vj, vi)
                             + data.getDistance(vi_ult, vj_next);
 
-            if (delta < bestDelta){
+            if ((delta - bestDelta) < epsilon) {
                 bestDelta = delta;
                 best_i = i;
                 insertionSite = j; // i será inserido na frente de j
@@ -159,7 +159,7 @@ bool bestImprovementOrOpt(Solution& s, const int size, Data& data){
 //
 // O loop para quando não houver mais vizinhanças para explorar
 void BuscaLocal(Solution& s, Data& data){
-    std::vector<int> NL = {1,2,3,4,5};
+    std::vector<int> NL = {1, 2, 3, 4, 5};
     bool improved=false;
     
     while (NL.empty() == false) {
@@ -182,7 +182,7 @@ void BuscaLocal(Solution& s, Data& data){
                 break;
         }
         if (improved)
-            NL = {1,2,3,4,5};
+            NL = {1, 2, 3, 4, 5};
         else
             NL.erase(NL.begin() + n);
     }

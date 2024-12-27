@@ -3,8 +3,7 @@
 #include "BuscaLocal.h"
 #include "Perturbacao.h"
 
-// Função SolutionILS
-Solucao SolutionILS(Data &data, int maxIter, int maxIterIls) {
+Solucao SolutionILS(Data &data, const int maxIter, const int maxIterIls) {
     Solucao bestOfAll;
     bestOfAll.cost = INFINITY; // Inicializa com um valor de custo muito alto
 

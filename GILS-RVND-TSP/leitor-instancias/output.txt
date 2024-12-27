@@ -1,0 +1,5 @@
+instancia, tempo, custo 
+
+instances/a280.tsp, 67.7252, 2579
+instances/ali535.tsp, 1378.22, 202486
+instances/att48.tsp, 0.29748, 10628

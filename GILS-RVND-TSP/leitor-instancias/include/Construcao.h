@@ -11,11 +11,8 @@ struct InsertionInfo {
     double custo;          // Delta ao inserir k na aresta {i, j}
 };
 
-// Função para calcular custos de inserção
-std::vector<InsertionInfo> calcularCustoInsercao(Solucao& s, std::vector<int>& CL);
-std::vector<int> escolher3NosAleatorios(Solution& s, Data& data);
-std::vector<int> nosRestantes(Data& data, std::vector<int>& Vl); 
-void ordenarEmOrdemCrescente(std::vector<InsertionInfo>& custoInsercao);
+std::vector<InsertionInfo> calcularCustoInsercao(Solution& s, std::vector<int>& CL, Data& data);
+std::vector<int> escolher3NosAleatorios(Solution& s, std::vector<int>& CL, Data& data);
 void inserirNaSolucao(Solution& s, InsertionInfo selecionado);
 
 // Função para construção de uma solução inicial

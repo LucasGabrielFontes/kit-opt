@@ -1,6 +1,7 @@
+#include <algorithm>  // Para ordenar vetores
 #include <cmath>      // Para ceil
 #include <cstdlib>    // Para rand e RAND_MAX
-#include <algorithm>  // Para ordenar vetores
+#include <ctime>      // Para time()
 #include <random>     // Geracao de numeros aleatorios
 #include "Construcao.h"
 
@@ -23,8 +24,8 @@ std::vector<InsertionInfo> calcularCustoInsercao(Solution& s, std::vector<int>& 
     return custoInsercao;
 }
 
-// Função para escolher 3 nós aleatórios para iniciar a sequência
-std::vector<int> escolher3NosAleatorios(Solution& s, Data& data){
+// Função para escolher 3 nós aleatórios para iniciar a sequência (CL também é modificado aqui, contendo todos os nós restantes que não foram escolhidos)
+std::vector<int> escolher3NosAleatorios(Solution& s, std::vector<int>& CL, Data& data){
     
     std::vector<int> candidatos; // Vertices candidatos a serem escolhidos (todos, exceto o 1)
 
@@ -38,18 +39,24 @@ std::vector<int> escolher3NosAleatorios(Solution& s, Data& data){
         candidatos.push_back(i);
     }
 
-    std::random_device rd;
-    std::mt19937 rng(rd());
-    std::shuffle(candidatos.begin(), candidatos.end(), rng);
+    std::srand(std::time(0));
+
+    for (size_t i = 0; i < candidatos.size(); i++) { // Embaralha manualmente os candidatos
+        size_t j = (std::rand() % (candidatos.size() - i)) + i;
+        std::swap(candidatos[i], candidatos[j]);
+    }
 
     std::vector<int> sequence = {1}; // Ciclo que comeca e termina em um passando por tres outros vertices aleatoriamente
 
     int atual = 1;
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++) { // Escolhe os tres nos aleatorios
         sequence.push_back(candidatos[i]);
         s.cost += data.getDistance(atual, candidatos[i]);
         atual = candidatos[i];
     }
+
+    candidatos.erase(candidatos.begin(), candidatos.begin()+3);
+    CL = candidatos;
 
     s.cost += data.getDistance(atual, 1);
 
@@ -57,30 +64,6 @@ std::vector<int> escolher3NosAleatorios(Solution& s, Data& data){
 
     return sequence;
 }
-
-// Função para retornar todos os nós que não estão no subconjunto de vértices inicial
-std::vector<int> nosRestantes(Data& data, std::vector<int>& sequence) {
-
-    size_t n = data.getDimension(); // Quantidade de vertices
-    std::vector<int> V; // Nos restantes
-
-    for (int i = 2; i <= n; i++) {
-        if (std::find(sequence.begin(), sequence.end(), i) != sequence.end()) { // Se o no estiver na sequencia fornecida, nada e feito
-            continue;
-        }
-        V.push_back(i); // Se o no nao estiver, ele e adicionado aos nos restantes
-    }
-
-    return V;
-}
-
-// Função para ordenar em ordem crescente pelo custo de inserção cada um dos vértices
-void ordenarEmOrdemCrescente(std::vector<InsertionInfo>& custoInsercao){
-    std::sort(custoInsercao.begin(), custoInsercao.end(), [](const InsertionInfo& a, const InsertionInfo& b){
-        return a.custo < b.custo;
-    });
-}
-
 
 // Função para inserir o nó na sequência e atualizar o custo total
 void inserirNaSolucao(Solution& s, InsertionInfo selecionado) {
@@ -91,8 +74,8 @@ void inserirNaSolucao(Solution& s, InsertionInfo selecionado) {
 // Função para construir uma solução inicial
 Solution Construcao(Data& data) {
     Solution s;
-    s.sequence = escolher3NosAleatorios(s, data);  // Escolhe 3 nós aleatórios para iniciar a solução
-    std::vector<int> CL = nosRestantes(data, s.sequence);   // Lista de nós candidatos
+    std::vector<int> CL;
+    s.sequence = escolher3NosAleatorios(s, CL, data);  // Escolhe 3 nós aleatórios para iniciar a solução
 
     /* Exemplo:
        V = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
@@ -105,7 +88,9 @@ Solution Construcao(Data& data) {
         std::vector<InsertionInfo> custoInsercao = calcularCustoInsercao(s, CL, data);
 
         // Ordena os custos em ordem crescente
-        ordenarEmOrdemCrescente(custoInsercao);
+        std::sort(custoInsercao.begin(), custoInsercao.end(), [](const InsertionInfo& a, const InsertionInfo& b){
+            return a.custo < b.custo;
+        });
 
         // Seleciona um nó com base no parâmetro alpha
         double alpha = (double)rand() / RAND_MAX;
@@ -114,6 +99,7 @@ Solution Construcao(Data& data) {
         // Insere o nó selecionado na solução
         inserirNaSolucao(s, custoInsercao[selecionado]);
         
+        // Ao inserir o nó na solução, ele é removido de CL
         CL.erase(std::remove(CL.begin(), CL.end(), custoInsercao[selecionado].noInserido), CL.end());
     }
 
