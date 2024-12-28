@@ -1,0 +1,1 @@
+Médias de custo e tempo (em segundos) para resolver cada instância após 10 execuções do algoritmo, realizadas em um processador Intel® Core™ i5-1235U 1.30GHz.
