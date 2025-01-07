@@ -33,7 +33,6 @@ int main(int argc, char** argv) {
     }
     cout << solucaoInicial.sequence[solucaoInicial.sequence.size()-1] << endl;
 
-
     // Solucao solucao = SolutionILS(data, maxIter, maxIterIls);
 
     return 0;

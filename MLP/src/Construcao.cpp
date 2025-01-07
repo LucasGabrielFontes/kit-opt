@@ -36,16 +36,18 @@ Solution Construcao(Data& data) {
 
         int ind = std::rand() % RCL.size();
         int c = RCL[ind]; // Escolhe um elemento aleatorio de RCL
-        s.sequence.push_back(c);
-        r = c;
-        CL.erase(std::remove(CL.begin(), CL.end(), c), CL.end());
+        s.sequence.push_back(c); // Adiciona-o na sequencia
+        r = c; // Atualiza r
+        CL.erase(std::remove(CL.begin(), CL.end(), c), CL.end()); // Atualiza CL
     }
 
-    s.sequence.push_back(1);
+    s.sequence.push_back(1); // Finaliza a sequencia
+
+    s.subseq_matrix = std::vector<std::vector<Subsequence>>(n, std::vector<Subsequence>(n)); // Inicializa a matriz de subsequencias para ser utilizada na funcao a seguir
 
     UpdateAllSubseq(&s, s.subseq_matrix, data);
 
-    s.cost = s.subseq_matrix[0][n].C;
+    s.cost = s.subseq_matrix[0][n-1].C;
 
     return s;
 }
