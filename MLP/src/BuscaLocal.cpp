@@ -6,7 +6,7 @@
 #define epsilon 0
 
 // Encontra o vizinho da solucao atual na vizinhanca formada pela movimentacao swap que contem o menor custo possivel
-bool bestImprovementSwap(Solution& s, Data& data) {
+bool bestImprovementSwap(Solution& s, const Data& data) {
 
     double bestC = std::numeric_limits<double>::infinity();
     int best_i, best_j;
@@ -41,7 +41,7 @@ bool bestImprovementSwap(Solution& s, Data& data) {
 }
 
 // Encontra o vizinho da solucao atual na vizinhanca formada pela movimentacao 2 opt que contem o menor custo possivel
-bool bestImprovement2Opt(Solution& s, Data& data) {
+bool bestImprovement2Opt(Solution& s, const Data& data) {
 
     double bestC = std::numeric_limits<double>::infinity();
     int best_i, best_k; // com o indice i, por exemplo, você consegue a aresta em s.sequence[i] e s.sequence[i+1]
@@ -74,7 +74,7 @@ bool bestImprovement2Opt(Solution& s, Data& data) {
 }
 
 // Encontra o vizinho da solucao atual na vizinhanca formada pela movimentacao or opt que contem o menor custo possivel
-bool bestImprovementOrOpt(Solution& s, const int size, Data& data){
+bool bestImprovementOrOpt(Solution& s, const int size, const Data& data){
 
     double bestC = std::numeric_limits<double>::infinity();
     int best_i = -1, insertionSite = -1;
@@ -140,7 +140,7 @@ bool bestImprovementOrOpt(Solution& s, const int size, Data& data){
 // Se não houver melhoria, tal vizinhança é descartada
 //
 // O loop para quando não houver mais vizinhanças para explorar
-void BuscaLocal(Solution& s, Data& data){
+void BuscaLocal(Solution& s, const Data& data){
     std::vector<int> NL = {1, 2, 3, 4, 5};
     bool improved=false;
     

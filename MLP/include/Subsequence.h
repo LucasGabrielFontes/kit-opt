@@ -17,7 +17,7 @@ struct Subsequence {
     int W;
     int first, last; // Primeiro e ultimo nos da subsequencia
 
-    inline static Subsequence Concatenate(Subsequence &sigma_1, Subsequence &sigma_2, Data &data) {
+    inline static Subsequence Concatenate(Subsequence &sigma_1, Subsequence &sigma_2, const Data &data) {
         Subsequence sigma;
         double temp = data.getDistance(sigma_1.last, sigma_2.first);
         sigma.W = sigma_1.W + sigma_2.W;
@@ -30,6 +30,6 @@ struct Subsequence {
     }
 };
 
-void UpdateAllSubseq(Solution *s, Data& data);
+void UpdateAllSubseq(Solution *s, const Data& data);
 
 #endif

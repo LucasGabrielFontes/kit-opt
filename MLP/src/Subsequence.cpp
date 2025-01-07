@@ -9,7 +9,7 @@
 
 using namespace std;
 
-void UpdateAllSubseq(Solution *s, Data& data) {
+void UpdateAllSubseq(Solution *s, const Data& data) {
 
     int n = s->subseq_matrix.size();
 
