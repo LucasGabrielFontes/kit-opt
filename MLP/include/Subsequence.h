@@ -27,6 +27,6 @@ struct Subsequence {
     }
 };
 
-void UpdateAllSubseq(Solution *s, vector<vector<Subsequence>>& subseq_matrix, Data& data);
+void UpdateAllSubseq(Solution *s, Data& data);
 
 #endif

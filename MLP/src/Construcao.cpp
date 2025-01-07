@@ -5,11 +5,12 @@
 #include <random>     // Geracao de numeros aleatorios
 #include "../include/Construcao.h"
 #include "../include/Subsequence.h"
+#include "../include/random.h"
 
 // Função para construir uma solução inicial
 Solution Construcao(Data& data) {
 
-    std::srand(std::time(0));
+    // std::srand(std::time(0));
 
     int n = data.getDimension();
 
@@ -23,7 +24,7 @@ Solution Construcao(Data& data) {
     }
 
     int r = 1;
-    double alpha = (double)rand() / RAND_MAX;
+    double alpha = Random::getReal(0, 1); // (double)rand() / RAND_MAX;
 
     while (!CL.empty()) {
 
@@ -34,7 +35,7 @@ Solution Construcao(Data& data) {
         size_t limite = std::max(static_cast<size_t>(1), static_cast<size_t>(alpha * CL.size()));
         std::vector<int> RCL(CL.begin(), CL.begin() + limite); // Cria o vetor RCL com a porcentagem alpha dos primeiros elementos de CL
 
-        int ind = std::rand() % RCL.size();
+        int ind = Random::getInt(0, RCL.size()-1); //std::rand() % RCL.size();
         int c = RCL[ind]; // Escolhe um elemento aleatorio de RCL
         s.sequence.push_back(c); // Adiciona-o na sequencia
         r = c; // Atualiza r
@@ -45,7 +46,7 @@ Solution Construcao(Data& data) {
 
     s.subseq_matrix = std::vector<std::vector<Subsequence>>(n, std::vector<Subsequence>(n)); // Inicializa a matriz de subsequencias para ser utilizada na funcao a seguir
 
-    UpdateAllSubseq(&s, s.subseq_matrix, data);
+    UpdateAllSubseq(&s, data);
 
     s.cost = s.subseq_matrix[0][n-1].C;
 

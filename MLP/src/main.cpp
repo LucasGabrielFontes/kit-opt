@@ -2,6 +2,7 @@
 #include <chrono>
 #include "../include/Data.h"
 #include "../include/SolutionILS.h"
+#include "../include/random.h"
 
 ///////////////////////
 #include "../include/Construcao.h"
@@ -11,6 +12,9 @@
 using namespace std;
 
 int main(int argc, char** argv) {
+
+    unsigned int seed = time(NULL);
+    Random::randomize(seed);
 
     auto data = Data(argc, argv[1]);
     data.read();
