@@ -1,6 +1,7 @@
 #include <limits>
 #include <algorithm>
 #include "../include/SolutionILS.h"
+#include "../include/random.h"
 
 #define epsilon 0
 
@@ -75,18 +76,13 @@ bool bestImprovement2Opt(Solution& s, Data& data) {
 // Encontra o vizinho da solucao atual na vizinhanca formada pela movimentacao or opt que contem o menor custo possivel
 bool bestImprovementOrOpt(Solution& s, const int size, Data& data){
 
-    double bestDelta = std::numeric_limits<double>::infinity();
-
+    double bestC = std::numeric_limits<double>::infinity();
     int best_i = -1, insertionSite = -1;
+    int n = s.subseq_matrix.size();
 
-    for (int i = 1; i < s.sequence.size()-size; i++) {
+    for (int i = 1; i < n-size; i++) {
 
-        int vi = s.sequence[i];
-        int vi_prev = s.sequence[i-1];
-        int vi_ult = s.sequence[i+size-1];
-        int vi_prox = s.sequence[i+size];
-
-        for (int j = 1; j < s.sequence.size()-1; j++) {
+        for (int j = 1; j < n-1; j++) {
 
             if (j == i-1) {
                 continue;
@@ -96,25 +92,29 @@ bool bestImprovementOrOpt(Solution& s, const int size, Data& data){
                 continue;
             }
 
-            int vj = s.sequence[j];
-            int vj_next = s.sequence[j+1];
+            Subsequence sigma_1;
+            Subsequence sigma_2;
+            Subsequence sigma_3;
 
-            double delta =  - data.getDistance(vi_prev, vi)
-                            - data.getDistance(vi_ult, vi_prox)
-                            - data.getDistance(vj, vj_next)
-                            + data.getDistance(vi_prev, vi_prox)
-                            + data.getDistance(vj, vi)
-                            + data.getDistance(vi_ult, vj_next);
+            if (j < i) {
+                sigma_1 = Subsequence::Concatenate(s.subseq_matrix[0][j], s.subseq_matrix[i][i+size-1], data);
+                sigma_2 = Subsequence::Concatenate(sigma_1, s.subseq_matrix[j+1][i-1], data);
+                sigma_3 = Subsequence::Concatenate(sigma_2, s.subseq_matrix[i+size][n-1], data);
+            } else {
+                sigma_1 = Subsequence::Concatenate(s.subseq_matrix[0][i-1], s.subseq_matrix[i+size][j], data);
+                sigma_2 = Subsequence::Concatenate(sigma_1, s.subseq_matrix[i][i+size-1], data);
+                sigma_3 = Subsequence::Concatenate(sigma_2, s.subseq_matrix[j+1][n-1], data);
+            }
 
-            if (delta < bestDelta - epsilon) {
-                bestDelta = delta;
+            if (sigma_3.C < bestC - epsilon) {
+                bestC = sigma_3.C;
                 best_i = i;
                 insertionSite = j; // i será inserido na frente de j
             }
         }
     }
 
-    if (bestDelta < 0) {
+    if (bestC < s.cost) {
 
         vector<int> bloco(s.sequence.begin() + best_i, s.sequence.begin() + best_i + size);
         s.sequence.erase(s.sequence.begin() + best_i, s.sequence.begin() + best_i + size);
@@ -124,7 +124,8 @@ bool bestImprovementOrOpt(Solution& s, const int size, Data& data){
         }
 
         s.sequence.insert(s.sequence.begin() + insertionSite + 1, bloco.begin(), bloco.end());
-        s.cost += bestDelta;
+        UpdateAllSubseq(&s, data);
+        s.cost = bestC;
 
         return true;
     }
@@ -140,11 +141,11 @@ bool bestImprovementOrOpt(Solution& s, const int size, Data& data){
 //
 // O loop para quando não houver mais vizinhanças para explorar
 void BuscaLocal(Solution& s, Data& data){
-    std::vector<int> NL = {1, 2};
+    std::vector<int> NL = {1, 2, 3, 4, 5};
     bool improved=false;
     
     while (NL.empty() == false) {
-        int n = rand()%NL.size();
+        int n = Random::getInt(0, NL.size() - 1);
         switch(NL[n]){
             case 1:
                 improved = bestImprovementSwap(s, data);
@@ -163,7 +164,7 @@ void BuscaLocal(Solution& s, Data& data){
                 break;
         }
         if (improved)
-            NL = {1, 2};
+            NL = {1, 2, 3, 4, 5};
         else
             NL.erase(NL.begin() + n);
     }

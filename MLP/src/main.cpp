@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
 
     BuscaLocal(solucaoInicial, data);
 
-    cout << "Solucao melhorada com o swap e 2 opt:" << endl;
+    cout << "Solucao melhorada com a Busca Local:" << endl;
     for (unsigned int i = 0; i < solucaoInicial.sequence.size()-1; i++) {
         cout << solucaoInicial.sequence[i] << " -> ";
     }
