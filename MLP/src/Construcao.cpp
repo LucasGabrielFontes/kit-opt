@@ -10,8 +10,6 @@
 // Função para construir uma solução inicial
 Solution Construcao(Data& data) {
 
-    // std::srand(std::time(0));
-
     int n = data.getDimension();
 
     Solution s;
@@ -24,7 +22,7 @@ Solution Construcao(Data& data) {
     }
 
     int r = 1;
-    double alpha = Random::getReal(0, 1); // (double)rand() / RAND_MAX;
+    double alpha = Random::getReal(0, 1);
 
     while (!CL.empty()) {
 

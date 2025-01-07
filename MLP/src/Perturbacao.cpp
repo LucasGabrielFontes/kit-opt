@@ -21,18 +21,20 @@ Solucao Perturbacao(Solution s, Data& data) {
     Subsequence sigma_1;
     Subsequence sigma_2;
     Subsequence sigma_3;
+    Subsequence sigma_end;
 
     if ((i1+tam1) == (i2)) { // Segmentos adjacentes
 
         sigma_1 = Subsequence::Concatenate(s.subseq_matrix[0][i1-1], s.subseq_matrix[i2][i2+tam2-1], data);
         sigma_2 = Subsequence::Concatenate(sigma_1, s.subseq_matrix[i1][i1+tam1-1], data);
-        sigma_3 = Subsequence::Concatenate(sigma_2, s.subseq_matrix[i2+tam2][n-1], data);
+        sigma_end = Subsequence::Concatenate(sigma_2, s.subseq_matrix[i2+tam2][n-1], data);
 
     } else {  // Nao adjacentes
 
         sigma_1 = Subsequence::Concatenate(s.subseq_matrix[0][i1-1], s.subseq_matrix[i2][i2+tam2-1], data);
         sigma_2 = Subsequence::Concatenate(sigma_1, s.subseq_matrix[i1+tam1][i2-1], data);
-        sigma_3 = Subsequence::Concatenate(sigma_2, s.subseq_matrix[i2+tam2][n-1], data);
+        sigma_3 = Subsequence::Concatenate(sigma_2, s.subseq_matrix[i1][i1+tam1-1], data);
+        sigma_end = Subsequence::Concatenate(sigma_3, s.subseq_matrix[i2+tam2][n-1], data);
 
     }
 
@@ -44,7 +46,7 @@ Solucao Perturbacao(Solution s, Data& data) {
 
     UpdateAllSubseq(&s, data);
 
-    s.cost = sigma_3.C;
+    s.cost = sigma_end.C;
 
     return s;
 }
