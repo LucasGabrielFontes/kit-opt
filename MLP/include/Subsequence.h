@@ -10,6 +10,9 @@ class Solution;
 
 struct Subsequence {
 
+    // T: duracao
+    // C: custo acumulado
+    // W: custo de atraso
     double T, C;
     int W;
     int first, last; // Primeiro e ultimo nos da subsequencia
