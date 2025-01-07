@@ -6,7 +6,7 @@ using namespace std;
 
 // Retorna uma perturbacao na solucao atual: troca dois segmentos de tamanhos aleatorios de local
 Solucao Perturbacao(Solution s, Data& data) {
-    
+
     int n = s.subseq_matrix.size();
 
     int tam1 = Random::getInt(2, ceil(n/10.0));
@@ -46,7 +46,7 @@ Solucao Perturbacao(Solution s, Data& data) {
 
     UpdateAllSubseq(&s, data);
 
-    s.cost = sigma_end.C;
+    s.cost = s.subseq_matrix[0][n-1].C;
 
     return s;
 }

@@ -32,7 +32,7 @@ bool bestImprovementSwap(Solution& s, const Data& data) {
     if(bestC < s.cost) {
         std::swap(s.sequence[best_i], s.sequence[best_j]);
         UpdateAllSubseq(&s, data);
-        s.cost = bestC;
+        s.cost = s.subseq_matrix[0][n-1].C;
 
         return true;
     }
@@ -65,7 +65,7 @@ bool bestImprovement2Opt(Solution& s, const Data& data) {
     if (bestC < s.cost) {
         std::reverse(s.sequence.begin() + best_i + 1, s.sequence.begin() + best_k);
         UpdateAllSubseq(&s, data);
-        s.cost = bestC;
+        s.cost = s.subseq_matrix[0][n-1].C;
 
         return true;
     }
@@ -125,7 +125,7 @@ bool bestImprovementOrOpt(Solution& s, const int size, const Data& data){
 
         s.sequence.insert(s.sequence.begin() + insertionSite + 1, bloco.begin(), bloco.end());
         UpdateAllSubseq(&s, data);
-        s.cost = bestC;
+        s.cost = s.subseq_matrix[0][n-1].C;
 
         return true;
     }

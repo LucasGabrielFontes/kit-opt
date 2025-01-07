@@ -15,7 +15,6 @@ void UpdateAllSubseq(Solution *s, const Data& data) {
 
     // subsequencias de um unico no
     for(int i = 0; i < n; i++) {
-        int v = s->sequence[i];
         s->subseq_matrix[i][i].W = (i > 0);
         s->subseq_matrix[i][i].C = 0;
         s->subseq_matrix[i][i].T = 0;
@@ -30,5 +29,5 @@ void UpdateAllSubseq(Solution *s, const Data& data) {
     // subsequencias invertidas (necessarias para o 2-opt)
     for(int i = n-1; i >= 0; i--)
         for(int j = i-1; j >= 0; j--)
-        s->subseq_matrix[i][j] = Subsequence::Concatenate(s->subseq_matrix[i][j+1], s->subseq_matrix[j][j], data);
+            s->subseq_matrix[i][j] = Subsequence::Concatenate(s->subseq_matrix[i][j+1], s->subseq_matrix[j][j], data);
 }

@@ -33,6 +33,6 @@ int main(int argc, char** argv) {
     auto fim = chrono::high_resolution_clock::now(); // Finaliza a medição do tempo
     chrono::duration<double> tempo = fim - inicio; // Calcula a duração em milissegundos
     cout << data.getInstanceName() << ", " << tempo.count() << ", " << solucao.cost << endl;
-
+ 
     return 0;
 }

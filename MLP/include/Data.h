@@ -16,7 +16,7 @@ public:
 
 	void read();
 	void printMatrixDist();
-	inline int getDimension(){ return dimension; };
+	inline int getDimension() const { return dimension; };
 	inline double getDistance(int i, int j) const {return distMatrix[i-1][j-1]; };
 	inline double **getMatrixCost(){return distMatrix; }
 	inline double getXCoord(int i){return xCoord[i-1];}

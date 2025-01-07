@@ -42,7 +42,7 @@ Solution Construcao(Data& data) {
 
     s.sequence.push_back(1); // Finaliza a sequencia
 
-    s.subseq_matrix = std::vector<std::vector<Subsequence>>(n, std::vector<Subsequence>(n)); // Inicializa a matriz de subsequencias para ser utilizada na funcao a seguir
+    s.subseq_matrix = std::vector<std::vector<Subsequence>>(n+1, std::vector<Subsequence>(n+1)); // Inicializa a matriz de subsequencias para ser utilizada na funcao a seguir
 
     UpdateAllSubseq(&s, data);
 
