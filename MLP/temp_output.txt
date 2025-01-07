@@ -1,0 +1,220 @@
+att48, 0.0602822, 160031
+
+
+
+Custo total: 226317
+berlin52, 0.0910624, 112174
+
+
+
+Custo total: 185509
+brazil58, 0.134846, 390815
+
+
+
+Custo total: 584602
+burma14, 0.00191813, 12106
+
+
+
+Custo total: 19929
+dantzig42, 0.0828487, 10131
+
+
+
+Custo total: 16291
+eil101, 0.779851, 22475
+
+
+
+Custo total: 32971
+eil51, 0.0838648, 8050
+
+
+
+Custo total: 12592
+eil76, 0.355526, 15119
+
+
+
+Custo total: 22047
+gr48, 0.0789333, 76161
+
+
+
+Custo total: 109132
+gr96, 0.774704, 1.6843e+06
+
+
+
+Custo total: 2501617
+hk48, 0.0756152, 207209
+
+
+
+Custo total: 283986
+kroA100, 0.665731, 800068
+
+
+
+Custo total: 1063382
+kroB100, 0.84724, 820251
+
+
+
+Custo total: 1144291
+kroC100, 0.695046, 796014
+
+
+
+Custo total: 1093558
+kroD100, 0.752513, 823070
+
+
+
+Custo total: 1082295
+kroE100, 0.869606, 802880
+
+
+
+Custo total: 1072086
+lin105, 1.07893, 490207
+
+
+
+Custo total: 708131
+pr107, 1.33358, 1.66541e+06
+
+
+
+Custo total: 2381918
+pr76, 0.377357, 2.91193e+06
+
+
+
+Custo total: 4089074
+rat99, 1.3289, 50241
+
+
+
+Custo total: 67553
+rd100, 1.11761, 289906
+
+
+
+Custo total: 380720
+st70, 0.207217, 16785
+
+
+
+Custo total: 23110
+swiss42, 0.0374176, 18011
+
+
+
+Custo total: 25075
+att48, 0.0771037, 165135
+
+
+
+Custo total: 239078
+berlin52, 0.099771, 105422
+
+
+
+Custo total: 165611
+brazil58, 0.222916, 416007
+
+
+
+Custo total: 678334
+burma14, 0.00101671, 12429
+
+
+
+Custo total: 19929
+dantzig42, 0.0490847, 9616
+
+
+
+Custo total: 13834
+eil101, 0.972728, 22499
+
+
+
+Custo total: 30760
+eil51, 0.0676473, 7958
+
+
+
+Custo total: 11881
+eil76, 0.309428, 15585
+
+
+
+Custo total: 21006
+gr48, 0.0566869, 85217
+
+
+
+Custo total: 124130
+gr96, 0.741949, 1.71947e+06
+
+
+
+Custo total: 2317360
+hk48, 0.0596248, 197218
+
+
+
+Custo total: 280885
+kroA100, 0.827628, 823014
+
+
+
+Custo total: 1153740
+kroB100, 0.838642, 829722
+
+
+
+Custo total: 1122872
+kroC100, 0.759317, 791994
+
+
+
+Custo total: 1151540
+kroD100, 0.714357, 858742
+
+
+
+Custo total: 1146419
+kroE100, 0.819836, 797169
+
+
+
+Custo total: 1086001
+lin105, 0.899512, 502649
+
+
+
+Custo total: 766274
+pr107, 1.54625, 1.7195e+06
+
+
+
+Custo total: 2220267
+pr76, 0.422199, 2.68357e+06
+
+
+
+Custo total: 4104725
+rat99, 1.03215, 51019
+
+
+
+Custo total: 68507
+rd100, 0.832977, 286870
+
+
+
+Custo total: 407235

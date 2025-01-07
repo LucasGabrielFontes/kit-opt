@@ -5,7 +5,7 @@
 
 #include "../include/Subsequence.h"
 
-Solucao SolutionILS(Data &data, const int maxIter, const int maxIterIls, vector<vector<Subsequence>>& subseq_matrix) {
+Solucao SolutionILS(Data &data, const int maxIter, const int maxIterIls) {
     Solucao bestOfAll;
     bestOfAll.cost = INFINITY; // Inicializa com um valor de custo muito alto
 

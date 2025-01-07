@@ -6,7 +6,7 @@ repeticoes=10
 num_instancias=$(ls instances | wc -l)
 
 # Diretório para salvar os arquivos de saída
-output_dir=""
+output_dir="/mnt/c/Users/lucas/OneDrive/Documentos/MeuProjetos/kit-opt/MLP/Benchmark"
 
 # Cria o diretório caso não exista
 mkdir -p "$output_dir"
@@ -19,7 +19,7 @@ for ((r=1; r<=repeticoes; r++)); do
     k=1
     
     # Cria o arquivo de saída atual
-    output_file="$output_dir/ain_$r.txt"
+    output_file="$output_dir/output_$r.txt"
     echo "instancia, tempo, custo" > "$output_file"
     
     # Processa todas as instâncias
@@ -27,7 +27,7 @@ for ((r=1; r<=repeticoes; r++)); do
         echo "Processando $instance"
         echo "Instance $k of $num_instancias"
         
-        ./tsp "${instance}" >> "$output_file"
+        ./mlp "${instance}" >> "$output_file"
         
         k=$((k+1))
     done
