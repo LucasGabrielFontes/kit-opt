@@ -31,3 +31,36 @@ void UpdateAllSubseq(Solution *s, const Data& data) {
         for(int j = i-1; j >= 0; j--)
             s->subseq_matrix[i][j] = Subsequence::Concatenate(s->subseq_matrix[i][j+1], s->subseq_matrix[j][j], data);
 }
+
+void UpdateSubseq(Solution *s, const Data& data, int i1, int i2) {
+
+    int n = s->subseq_matrix.size();
+
+    for(int i = i1; i <= i2; i++) {
+        s->subseq_matrix[i][i].W = (i > 0);
+        s->subseq_matrix[i][i].C = 0;
+        s->subseq_matrix[i][i].T = 0;
+        s->subseq_matrix[i][i].first = s->sequence[i];
+        s->subseq_matrix[i][i].last = s->sequence[i];
+    }
+
+    for (int i = 0; i <= i2; i++) {
+        for (int j = i1; j < n; j++) {
+            if (i == j) {
+                break;
+            } else {
+                s->subseq_matrix[i][j] = Subsequence::Concatenate(s->subseq_matrix[i][j-1], s->subseq_matrix[j][j], data);
+            }
+        }
+    }
+
+    for (int i = i1; i < n; i++) {
+        for (int j = 0; j <= i2; j++) {
+            if (i == j) {
+                break;
+            } else {
+                s->subseq_matrix[i][j] = Subsequence::Concatenate(s->subseq_matrix[i][j+1], s->subseq_matrix[j][j], data);
+            }
+        }
+    }
+}

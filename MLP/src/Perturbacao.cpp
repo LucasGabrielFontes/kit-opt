@@ -44,7 +44,7 @@ Solucao Perturbacao(Solution s, Data& data) {
     s.sequence.insert(s.sequence.begin() + i1, segmento2.begin(), segmento2.end());
     s.sequence.insert(s.sequence.begin() + i2 + tam2 - tam1, segmento1.begin(), segmento1.end());
 
-    UpdateAllSubseq(&s, data);
+    UpdateSubseq(&s, data, i1, i2+tam2-1);
 
     s.cost = s.subseq_matrix[0][n-1].C;
 

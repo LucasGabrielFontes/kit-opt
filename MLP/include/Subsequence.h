@@ -31,5 +31,6 @@ struct Subsequence {
 };
 
 void UpdateAllSubseq(Solution *s, const Data& data);
+void UpdateSubseq(Solution *s, const Data& data, int i1, int i2);
 
 #endif

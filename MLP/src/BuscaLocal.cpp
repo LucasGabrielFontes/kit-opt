@@ -31,7 +31,7 @@ bool bestImprovementSwap(Solution& s, const Data& data) {
 
     if(bestC < s.cost) {
         std::swap(s.sequence[best_i], s.sequence[best_j]);
-        UpdateAllSubseq(&s, data);
+        UpdateSubseq(&s, data, best_i, best_j);
         s.cost = s.subseq_matrix[0][n-1].C;
 
         return true;
@@ -64,7 +64,7 @@ bool bestImprovement2Opt(Solution& s, const Data& data) {
 
     if (bestC < s.cost) {
         std::reverse(s.sequence.begin() + best_i + 1, s.sequence.begin() + best_k);
-        UpdateAllSubseq(&s, data);
+        UpdateSubseq(&s, data, best_i+1, best_k-1);
         s.cost = s.subseq_matrix[0][n-1].C;
 
         return true;
@@ -119,12 +119,26 @@ bool bestImprovementOrOpt(Solution& s, const int size, const Data& data){
         vector<int> bloco(s.sequence.begin() + best_i, s.sequence.begin() + best_i + size);
         s.sequence.erase(s.sequence.begin() + best_i, s.sequence.begin() + best_i + size);
 
+        // int insertionSiteAux = insertionSite;
+
         if (best_i < insertionSite) {
             insertionSite -= size;
         }
 
         s.sequence.insert(s.sequence.begin() + insertionSite + 1, bloco.begin(), bloco.end());
-        UpdateAllSubseq(&s, data);
+
+        // int i1 = 0;
+        // int i2 = 0;
+
+        // if (insertionSiteAux > best_i) {
+        //     i1 = best_i;
+        //     i2 = insertionSiteAux;
+        // } else {
+        //     i1 = insertionSiteAux;
+        //     i2 = best_i + size;
+        // }
+        
+        UpdateAllSubseq(&s, data); // UpdateSubseq(&s, data, i1, i2);
         s.cost = s.subseq_matrix[0][n-1].C;
 
         return true;
