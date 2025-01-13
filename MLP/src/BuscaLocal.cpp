@@ -119,7 +119,7 @@ bool bestImprovementOrOpt(Solution& s, const int size, const Data& data){
         vector<int> bloco(s.sequence.begin() + best_i, s.sequence.begin() + best_i + size);
         s.sequence.erase(s.sequence.begin() + best_i, s.sequence.begin() + best_i + size);
 
-        // int insertionSiteAux = insertionSite;
+        int insertionSiteAux = insertionSite;
 
         if (best_i < insertionSite) {
             insertionSite -= size;
@@ -127,18 +127,18 @@ bool bestImprovementOrOpt(Solution& s, const int size, const Data& data){
 
         s.sequence.insert(s.sequence.begin() + insertionSite + 1, bloco.begin(), bloco.end());
 
-        // int i1 = 0;
-        // int i2 = 0;
+        int i1 = 0;
+        int i2 = 0;
 
-        // if (insertionSiteAux > best_i) {
-        //     i1 = best_i;
-        //     i2 = insertionSiteAux;
-        // } else {
-        //     i1 = insertionSiteAux;
-        //     i2 = best_i + size;
-        // }
+        if (insertionSiteAux > best_i) {
+            i1 = best_i;
+            i2 = insertionSiteAux;
+        } else {
+            i1 = insertionSiteAux;
+            i2 = best_i + size;
+        }
         
-        UpdateAllSubseq(&s, data); // UpdateSubseq(&s, data, i1, i2);
+        UpdateAllSubseq(&s, data);
         s.cost = s.subseq_matrix[0][n-1].C;
 
         return true;
